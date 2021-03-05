@@ -1,0 +1,27 @@
+{% extends layout/layout.phtml %}
+
+{% block content %}
+    {% foreach ($posts as $post): %}
+        <div class='post-overview'>
+            <div>
+                <p><a href='/index/detail?post={{ $post->id }}'>{{ $post->createdAt }}</a> - {{ $post->title }}</p>
+                <a href='/index/detail?post={{ $post->id }}'><p class='content'>{{ strlen($post->text) > 1000 ? substr($post->text, 0, 1000)."..." : $post->text }}</p></a>
+                <div class='post-overview-footer'>
+                    <p>Author: {{ $post->authorUsername }}</p>
+                    <a href='/index/detail?post={{ $post->id }}'><p>Kommentare: {{ $post->commentsCount }}</p></a>
+                </div>
+            </div>
+            <div>
+                <a href='/index/detail?post={{ $post->id }}'><img src='{{ $post->pictureUrl }}' /></a>
+            </div>
+        </div>
+    {% endforeach; %}
+    <div id='pagination'>
+        {% foreach (range(1, $pages) as $page): %}
+            <a href='/?page={{ $page }}'>{{ $page }}</a>
+            {% if ($page != $pages): %}
+                <span class='separator'>-</span>
+            {% endif; %}
+        {% endforeach; %}
+    </div>
+{% endblock %}

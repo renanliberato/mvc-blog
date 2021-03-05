@@ -1,0 +1,42 @@
+<?php
+$isLoggedIn = false;
+
+if (isset($config)) {
+    $authService = new \Application\Services\AuthService($config);
+    $isLoggedIn = $authService->isLoggedIn();
+}
+?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blog Name</title>
+        <meta charset="utf-8">
+        <link rel='stylesheet' href='/css/index.css' />
+    </head>
+    <body>
+        <header>
+            <div>
+                <a href='/'><img src='https://via.placeholder.com/90' /></a>
+                <h1>Blog Name</h1>
+            </div>
+            <nav>
+                <div>
+                    <a href='/'>übersicht</a>
+                    {% if ($isLoggedIn):    %}
+                        <a href='/'>Neuer Eintrag</a>
+                    {% endif; %}
+                    <a href='/'>Impressum</a>
+                </div>
+                <div>
+                    {% if (!$isLoggedIn): %}
+                        <a href='/auth/index'>Login</a>
+                    {% else: %}
+                        <a href='/auth/logout'>Logout</a>
+                    {% endif; %}
+                </div>
+            </nav>
+        </header>
+        {% yield content %}
+    </body>
+</html>
+

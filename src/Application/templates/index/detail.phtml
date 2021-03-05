@@ -1,0 +1,56 @@
+{% extends layout/layout.phtml %}
+
+{% block content %}
+<div id='post-detail'>
+    <span>{{ $post->createdAt }}</span>
+    <h2>{{ $post->title }}</h2>
+    <img src='{{ $post->pictureUrl }}' />
+    <p>{{ $post->text }}</p>
+    <p>Author: {{ $post->authorUsername }}</p>
+</div>
+<div id='comment-list'>
+    <ol>
+        {% foreach ($comments as $comment): %}
+            <li class='comment'>
+                <div>
+                    <div>{{ $comment->name }} ({{ $comment->createdAt }}): {{ $comment->comment }}</div>
+                    {% if ($isLoggedIn): %}
+                    <form method='POST' action='/index/uncomment?comment={{ $comment->id }}&post={{ $post->id }}'>
+                        <button>X</button>
+                    </form>
+                    {% endif; %}
+                </div>
+            </li>
+        {% endforeach; %}
+    </ol>
+</div>
+<div id='new-comment'>
+    {% if($comment_required_fields_error): %}
+        <p>Check the required fields!</p>
+    {% endif; %}
+    <form method='POST' action='/index/comment?post={{ $post->id }}'>
+        <table>
+            <tr>
+                <td><label>Name*:</label></td>
+                <td><input name='name' value='{{$commentData['name']}}'/></td>
+            </tr>
+            <tr>
+                <td><label>Mail:</label></td>
+                <td><input type='email' name='email' value='{{$commentData['email']}}'/></td>
+            </tr>
+            <tr>
+                <td><label>URL:</label></td>
+                <td><input name='website' value='{{$commentData['website']}}'/></td>
+            </tr>
+            <tr>
+                <td><label>Kommentar*:</label></td>
+                <td><textarea name='comment' value='{{$commentData['comment']}}'></textarea></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button>Absenden</button></td>
+            </tr>
+        </table>
+    </form>
+</div>
+{% endblock %}

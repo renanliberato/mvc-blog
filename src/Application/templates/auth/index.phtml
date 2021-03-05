@@ -1,0 +1,25 @@
+{% extends layout/layout.phtml %}
+
+{% block content %}
+<div id='login-container'>
+    {% if ($login_error): %}
+        <p>User does not exist or wrong password.</p>
+    {% endif; %}
+    <form method='POST' action='/auth/login'>
+        <table>
+            <tr>
+                <td><label>Benutzername:</label></td>
+                <td><input name='username'/></td>
+            </tr>
+            <tr>
+                <td><label>Passwort:</label></td>
+                <td><input type='password' name='password'/></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button>Login</button></td>
+            </tr>
+        </table>
+    </form>
+</div>
+{% endblock %}

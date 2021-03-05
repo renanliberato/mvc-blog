@@ -1,0 +1,20 @@
+{
+    "name": "renanliberato/mvc-blog",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Renan Liberato Sant'Ana",
+            "email": "renan.libsantana@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Application\\": "src/Application/",
+            "OurMVCFramework\\": "src/OurMVCFramework/"
+        }
+    },
+    "scripts": {
+        "serve": "php -S 0.0.0.0:8080 -t public"
+    }
+}
